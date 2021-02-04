@@ -1,8 +1,15 @@
 import React from "react";
-import logo from "./logo.svg";
 
-import Button from '@material-ui/core/Button';
+import Header from './components/Header';
+
+import { ThemeProvider } from '@material-ui/core/styles';
+import Theme from './Theme.js';
 import "./App.css";
+
+
+
+
+
 
 function App() {
 	const [data, setData] = React.useState(null);
@@ -13,11 +20,24 @@ function App() {
 			.then((data) => setData(data.message));
 	}, []);
 
-	return (
 
-		<Button variant="contained" color="primary">
-			<p>{!data ? "Loading..." : data}</p>
-		</Button>
+
+
+
+	return (
+		<body>
+			<ThemeProvider theme={Theme}>
+				<Header></Header>
+
+				<p>{!data ? "Loading..." : data}</p>
+			</ThemeProvider>
+			
+			
+
+
+			
+		</body>
+
 	);
 }
 
