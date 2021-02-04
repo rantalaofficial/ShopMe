@@ -4,11 +4,6 @@ import Header from './components/Header';
 
 import { ThemeProvider } from '@material-ui/core/styles';
 import Theme from './Theme.js';
-import "./App.css";
-
-
-
-
 
 
 function App() {
@@ -20,24 +15,22 @@ function App() {
 			.then((data) => setData(data.message));
 	}, []);
 
-
-
-
+	const bodyStyle = {
+		margin: "0px",
+		padding: "0px",
+		backgroundColor: "#9dc1c9",
+	}
 
 	return (
-		<body>
-			<ThemeProvider theme={Theme}>
-				<Header></Header>
+		<ThemeProvider theme={Theme}>
+		
+		
+			<Header></Header>
 
-				<p>{!data ? "Loading..." : data}</p>
-			</ThemeProvider>
-			
-			
-
-
-			
-		</body>
-
+			<p>{!data ? "Loading..." : data}</p>
+		
+		
+		</ThemeProvider>
 	);
 }
 
