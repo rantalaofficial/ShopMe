@@ -2,7 +2,7 @@
   "name": "shopme",
   "version": "1.0.0",
   "description": "A Web shopping list app",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,6 +18,8 @@
   "homepage": "https://github.com/UisDangerouz/ShopMe#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "node": "^15.7.0"
+    "materialize-css": "^1.0.0-rc.2",
+    "node": "^15.7.0",
+    "nodemon": "^2.0.7"
   }
 }
