@@ -1,0 +1,19 @@
+.brand-logo {
+    padding-left: 15px !important;
+}
+
+#mobile-nav {
+    color: white !important;
+}
+
+#mobile-nav a {
+    margin: 15px 15px 0px;
+    padding: 0px 0px 0px 15px;
+    width: 270px;
+    text-align: left;
+}
+
+#mobile-nav a i {
+    color: white !important;
+    margin-right: 10px;
+}
