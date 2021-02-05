@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 
+import Typography from '@material-ui/core/Typography';
+
 const ShoppingList = props => {
     const [items, setItems] = React.useState({});
     const [checkedItems, setCheckedItems] = React.useState({});
 
     return (
-        <div>
-            <h1>Shopping History</h1>
-        </div>
+        <>
+            <Typography variant="h5" style={{margin: "10px", textAlign: "center"}}>
+                Shopping List
+            </Typography>
+        </>
     );
 
 }

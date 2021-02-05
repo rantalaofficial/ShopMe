@@ -8,12 +8,10 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Drawer from '@material-ui/core/Drawer';
-import Box from '@material-ui/core/Box';
 
 //Icons
 import MenuIcon from '@material-ui/icons/Menu';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import HistoryIcon from '@material-ui/icons/History';
 
 const useStyles = makeStyles((theme) => ({
@@ -68,8 +66,8 @@ const Header = (props) => {
 
                 <Drawer classes={{ paper: classes.background }} anchor='left' open={sidebar} onClose={() => setSidebar(false)}>
                     <div style={{display: "inline", padding: "0px"}}>
-                        <Button style={menuBtnStyle} variant="contained" color="secondary" onClick={() => handlePageSelect(0)}>Shopping list<ShoppingCartIcon/></Button>
-                        <Button style={menuBtnStyle} variant="contained" color="secondary" onClick={() => handlePageSelect(1)}>Shopping history<HistoryIcon/></Button>
+                        <Button style={menuBtnStyle} variant="contained" color="primary" onClick={() => handlePageSelect(0)}>Shopping list<ShoppingCartIcon/></Button>
+                        <Button style={menuBtnStyle} variant="contained" color="primary" onClick={() => handlePageSelect(1)}>Shopping history<HistoryIcon/></Button>
                     </div>
                 </Drawer>
 
