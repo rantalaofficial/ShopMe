@@ -31,15 +31,21 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const Header = () => {
+const Header = (props) => {
     const classes = useStyles();
 
     const [sidebar, setSidebar] = React.useState(false);
 
     const menuBtnStyle = {
         margin: "15px 15px 0px 15px",
-        width: "280px",
+        width: "230px",
         display: "block",
+        variant: "contained"
+    }
+
+    const handlePageSelect = index => {
+        setSidebar(false)
+        props.onPageSelect(index);
     }
 
     return (
@@ -56,21 +62,15 @@ const Header = () => {
                         </IconButton>
                         <Typography variant="h6" className={classes.title}>
                             ShopMe
-                        </Typography>
-                        <Box display={{ xs: 'none', sm: 'block' }}>
-                            <Button variant="contained" color="secondary">Today's shopping list<ShoppingCartIcon/></Button>
-                        </Box>
-                        
+                        </Typography>                        
                     </Toolbar>
                 </AppBar>
 
                 <Drawer classes={{ paper: classes.background }} anchor='left' open={sidebar} onClose={() => setSidebar(false)}>
                     <div style={{display: "inline", padding: "0px"}}>
-                        <Button style={menuBtnStyle} variant="contained" color="secondary">Today's shopping list<ShoppingCartIcon/></Button>
-                        <Button style={menuBtnStyle} variant="contained" color="secondary">New shopping list<AddShoppingCartIcon/></Button>
-                        <Button style={menuBtnStyle} variant="contained" color="secondary">Shopping history<HistoryIcon/></Button>
+                        <Button style={menuBtnStyle} variant="contained" color="secondary" onClick={() => handlePageSelect(0)}>Shopping list<ShoppingCartIcon/></Button>
+                        <Button style={menuBtnStyle} variant="contained" color="secondary" onClick={() => handlePageSelect(1)}>Shopping history<HistoryIcon/></Button>
                     </div>
-                    
                 </Drawer>
 
         </div>

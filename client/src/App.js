@@ -1,35 +1,35 @@
-import React from "react";
+import React, { useState } from 'react';
 
 import Header from './components/Header';
+import ShoppingList from './components/ShoppingList';
+import ShoppingHistory from './components/ShoppingHistory';
 
 import { ThemeProvider } from '@material-ui/core/styles';
 import Theme from './Theme.js';
 
 
 function App() {
-	const [data, setData] = React.useState(null);
+	const [data, setData] = useState(null);
+	const [pageIndex, setPageIndex] = useState(0);
 
-	React.useEffect(() => {
-		fetch("/api")
-			.then((res) => res.json())
-			.then((data) => setData(data.message));
-	}, []);
+	const selectPage = index => {
+		setPageIndex(index);
+	}
 
-	const bodyStyle = {
-		margin: "0px",
-		padding: "0px",
-		backgroundColor: "#9dc1c9",
+	let pageContent;
+
+	if (pageIndex === 0) {
+		pageContent = <ShoppingList></ShoppingList>
+	} else {
+		pageContent = <ShoppingHistory></ShoppingHistory>
 	}
 
 	return (
 		<ThemeProvider theme={Theme}>
-		
-		
-			<Header></Header>
+			<Header onPageSelect={selectPage}></Header>
 
-			<p>{!data ? "Loading..." : data}</p>
-		
-		
+			{pageContent}
+
 		</ThemeProvider>
 	);
 }
