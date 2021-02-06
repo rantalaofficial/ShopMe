@@ -44,6 +44,8 @@ const ShoppingList = props => {
     }
 
     const handleAddItem = () => {
+        if (!itemSearchText) return;
+
         fetch("/api/add_item/" + itemSearchText.toString())
                 .then((res) => res.json())
                 .then((success) => {
@@ -61,8 +63,6 @@ const ShoppingList = props => {
     const handleItemSearchChange = e => {
         setItemSearchText(e.target.value);
     }
-
-    useEffect(getItems, []);
 
     const handleItemCheck = e => {        
         let newListedItems = [...listedItems];
@@ -90,6 +90,9 @@ const ShoppingList = props => {
 
         return unlistedItems
     }
+
+    useEffect(getItems, []);
+
     return (
         <>
             <Typography variant="h5" style={{ margin: "15px", textAlign: "center" }}>
@@ -120,7 +123,11 @@ const ShoppingList = props => {
                     getOptionLabel={(option) => option.toString()}
                     style={{paddingTop: "10px", width: "auto" }}
                     onChange={handleAutoCompleteChange}
-                    renderInput={(params) => <TextField onChange={handleItemSearchChange} {...params} label="Add item" variant="outlined" />}
+                    renderInput={(params) => 
+                        <TextField onChange={handleItemSearchChange} {...params} label="Add item" variant="outlined" onKeyDown={e => {
+                            console.log(e);
+                            if (e.keyCode === 13) handleAddItem();
+                        }}/>}
                 />
             </Card>
 

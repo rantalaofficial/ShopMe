@@ -50,10 +50,13 @@ const ShoppingList = props => {
                 Shopping History
             </Typography>
             <TableContainer component={Paper} style={{ margin: "15px", width: "auto"}}>
-                <Typography variant="subtitle1" style={{margin: "15px 15px 0px 15px"}}>
-                    {listsCreated} shopping lists created since {firstListCreated}.
-                </Typography>
-
+                {(listsCreated > 0) ?
+                    <Typography variant="subtitle1" style={{margin: "15px 15px 0px 15px"}}>
+                        {listsCreated} shopping lists created since {firstListCreated}.
+                    </Typography>
+                    : <></>
+                }
+                
                 <Table aria-label="simple table">
                     <TableHead>
                         <TableRow>
