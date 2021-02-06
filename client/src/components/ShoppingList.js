@@ -28,11 +28,10 @@ const ShoppingList = props => {
             .then((data) => {
 
                 let listedItemsArray = [];
-                Object.keys(data.listedItems).map((label, checked) => {
-                    listedItemsArray.push({ label: label, checked: checked })
+                Object.keys(data.listedItems).map((label, index) => {
+                    listedItemsArray.push({ label: label, checked: data.listedItems[label] })
                 });
                 setListedItems(listedItemsArray);
-
                 setItemTypes(data.itemTypes);
             });
     }
@@ -68,6 +67,32 @@ const ShoppingList = props => {
         setItemSearchText(e.target.value);
     }
 
+    const handleItemCheck = e => {        
+        let newListedItems = [... listedItems];
+
+        let itemIndex = newListedItems.findIndex((item => item.label == e.target.value));
+        newListedItems[itemIndex].checked = e.target.checked;
+
+        let apiName = e.target.checked ? "set_checked" : "set_unchecked";
+
+        fetch("/api/" + apiName.toString() + "/" + newListedItems[itemIndex].label)
+                .then((res) => res.json())
+                .then((success) => {
+                    if (success) {
+                        setListedItems(newListedItems);
+                    }
+                });
+    };
+
+    const getUnlistedItems = () => {
+        let unlistedItems = [... itemTypes];
+
+        listedItems.forEach((item, index) => {
+            unlistedItems.splice(unlistedItems.indexOf(item.label), 1);
+        });
+
+        return unlistedItems
+    }
     return (
         <>
             <Typography variant="h5" style={{ margin: "15px", textAlign: "center" }}>
@@ -80,21 +105,22 @@ const ShoppingList = props => {
                         <FormControlLabel
                             style={{ paddingLeft: "12px" }}
                             value={item.label}
-                            control={<Checkbox color="primary" />}
+                            onChange={handleItemCheck}
+                            control={<Checkbox  checked={item.checked} color="primary" />}
                             label={item.label}
                             labelPlacement="end"
                         /><br></br>
                     </>
                 ))}
-                {(itemSearchText !== null && itemSearchText !== '') ? 
+                {(itemSearchText !== null && itemSearchText !== '' && itemSearchText.length > 0) ? 
                     <Button style={{ margin: "0", float: "left", paddingLeft: "10px", marginBottom: "15px"}} variant="contained" color="secondary" onClick={handleAddItem}><AddBoxIcon style={{ paddingRight: "8px" }} />Add item</Button>
                     : <></>
                 }
                 <Autocomplete
                     value={itemSearchText}
                     freeSolo
-                    options={itemTypes}
-                    getOptionLabel={(option) => option}
+                    options={getUnlistedItems()}
+                    getOptionLabel={(option) => option.toString()}
                     style={{paddingTop: "10px", width: "auto" }}
                     onChange={handleAutoCompleteChange}
                     renderInput={(params) => <TextField onChange={handleItemSearchChange} {...params} label="Add item" variant="outlined" />}

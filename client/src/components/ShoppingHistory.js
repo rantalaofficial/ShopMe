@@ -8,8 +8,8 @@ const ShoppingList = props => {
 
     return (
         <>
-            <Typography variant="h5" style={{margin: "10px", textAlign: "center"}}>
-                Shopping List
+            <Typography variant="h5" style={{margin: "15px", textAlign: "center"}}>
+                Shopping History
             </Typography>
         </>
     );
