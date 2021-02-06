@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -17,18 +17,13 @@ const ShoppingList = props => {
     const [itemSearchText, setItemSearchText] = useState([]);
     const [dialogOpen, setDialogOpen] = useState(false);
 
-
-    React.useEffect(() => {
-        getItems();
-    }, []);
-
     const getItems = () => {
         fetch("/api/get_items")
             .then((res) => res.json())
             .then((data) => {
 
                 let listedItemsArray = [];
-                Object.keys(data.listedItems).map((label, index) => {
+                Object.keys(data.listedItems).forEach((label, index) => {
                     listedItemsArray.push({ label: label, checked: data.listedItems[label] })
                 });
                 setListedItems(listedItemsArray);
@@ -67,10 +62,12 @@ const ShoppingList = props => {
         setItemSearchText(e.target.value);
     }
 
-    const handleItemCheck = e => {        
-        let newListedItems = [... listedItems];
+    useEffect(getItems, []);
 
-        let itemIndex = newListedItems.findIndex((item => item.label == e.target.value));
+    const handleItemCheck = e => {        
+        let newListedItems = [...listedItems];
+
+        let itemIndex = newListedItems.findIndex((item => item.label === e.target.value));
         newListedItems[itemIndex].checked = e.target.checked;
 
         let apiName = e.target.checked ? "set_checked" : "set_unchecked";
@@ -85,7 +82,7 @@ const ShoppingList = props => {
     };
 
     const getUnlistedItems = () => {
-        let unlistedItems = [... itemTypes];
+        let unlistedItems = [...itemTypes];
 
         listedItems.forEach((item, index) => {
             unlistedItems.splice(unlistedItems.indexOf(item.label), 1);

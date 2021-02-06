@@ -9,7 +9,6 @@ import Theme from './Theme.js';
 
 
 function App() {
-	const [data, setData] = useState(null);
 	const [pageIndex, setPageIndex] = useState(0);
 
 	const selectPage = index => {
