@@ -29,6 +29,11 @@ function send() {
                 subject: "ShopMe server started.",
                 text: "Public ip: http://" + ipData.toString(),
             }, (err, info) => {
+                if (err) {
+                    console.log("Ip email sending failed: " + err);
+                    return;
+                }
+
                 console.log("Ip email sent: %s", info.messageId);
             });
         });
