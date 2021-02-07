@@ -1,24 +1,28 @@
+/*depencies*/
+require('dotenv').config()
 const bodyParser = require("body-parser");
-
 const path = require('path');
 const express = require('express')
 
 const ShoppingData = require('./shoppingData.js');
+const sendIp = require('./sendIp.js');
 
 const app = express();
-const port = 8080;
+const port = process.env.PORT;
+const savingTimeout = 10000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.listen(port, () => {
-	console.log(`App listening at http://localhost:${port}`)
+	console.log(`App listening at http://localhost:${port}`);
+	sendIp();
 });
 
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
-const shoppingData = new ShoppingData("shoppingData.txt", 10000);
+const shoppingData = new ShoppingData("shoppingData.txt", savingTimeout);
 
 app.get("/api/get_items", (req, res) => {
 	res.json({ listedItems: shoppingData.getListedItems(), itemTypes: shoppingData.getItemTypes() });

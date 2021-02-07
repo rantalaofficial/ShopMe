@@ -95,6 +95,7 @@ class ShoppingData {
                     firstListCreated: this.firstListCreated,
                 });
 
+                console.log("Saving...");
                 fs.writeFile(this.filename, data, 'utf8', () => {
                     console.log("Saved successfully");
                 });
