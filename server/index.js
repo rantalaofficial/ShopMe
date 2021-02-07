@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const path = require('path');
 const express = require('express')
 
-const ShoppingData = require('./ShoppingData.js');
+const ShoppingData = require('./shoppingData.js');
 
 const app = express();
 const port = 8080;

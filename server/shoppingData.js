@@ -86,16 +86,18 @@ class ShoppingData {
         if(!this.savingTimeoutSet) {
             this.savingTimeoutSet = true;
 
-            let data = JSON.stringify({
-                itemTypes: this.itemTypes,
-                listedItems: this.listedItems,
-                itemHistory: this.itemHistory,
-                listsCreated: this.listsCreated,
-                firstListCreated: this.firstListCreated,
-            });
-
             setTimeout(() => {
-                fs.writeFile(this.filename, data, 'utf8', () => {/*console.log("Saved")*/});
+                let data = JSON.stringify({
+                    itemTypes: this.itemTypes,
+                    listedItems: this.listedItems,
+                    itemHistory: this.itemHistory,
+                    listsCreated: this.listsCreated,
+                    firstListCreated: this.firstListCreated,
+                });
+
+                fs.writeFile(this.filename, data, 'utf8', () => {
+                    console.log("Saved successfully");
+                });
                 this.savingTimeoutSet = false;
             }, this.savingTimeout);
         }
