@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 import Typography from '@material-ui/core/Typography';
-import Card from '@material-ui/core/Card';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -30,11 +29,26 @@ const ShoppingList = props => {
 
                 let historyArray = [];
                 Object.keys(data.itemHistory).forEach((label, index) => {
-                    historyArray.push({ label: label, count: data.itemHistory[label] })
+                    historyArray.push({ label: label, count: data.itemHistory[label]})
                     return "";
                 });
-
                 historyArray.sort(compareItems);
+
+                let itemRanking = 1;
+                historyArray.forEach((item, index) => {
+
+                    if(index == 0) {
+                        item.label = "1. " + item.label;
+                    } else if (item.count !== historyArray[index - 1].count) {
+                        itemRanking += 1
+                        item.label = itemRanking + ". " + item.label;
+                    } else {
+                        item.label = "— " + item.label;
+                    }
+                                        
+                    return item;
+                });
+
                 setItemHistory(historyArray);
                 setListsCreated(data.listsCreated);
                 setFirstListCreated(data.firstListCreated);
@@ -66,10 +80,10 @@ const ShoppingList = props => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {itemHistory.map((item, index) => (
+                        {itemHistory.map(item => (
                             <TableRow key={item.label}>
                                 <TableCell component="th" scope="row">
-                                    {index + 1 + ". " + item.label}
+                                    {item.label}
                                 </TableCell>
                                 <TableCell align="right">{item.count}</TableCell>
                                 <TableCell align="right">{Math.round(100 * item.count / Math.max(1, listsCreated))} %</TableCell>

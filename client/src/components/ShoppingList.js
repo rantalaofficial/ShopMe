@@ -125,7 +125,6 @@ const ShoppingList = props => {
                     onChange={handleAutoCompleteChange}
                     renderInput={(params) => 
                         <TextField onChange={handleItemSearchChange} {...params} label="Add item" variant="outlined" onKeyDown={e => {
-                            console.log(e);
                             if (e.keyCode === 13) handleAddItem();
                         }}/>}
                 />

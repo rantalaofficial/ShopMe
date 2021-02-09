@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 
 app.listen(port, () => {
 	console.log(`App listening at http://localhost:${port}`);
-	sendIp();
+	//sendIp();
 });
 
 // Have Node serve the files for our built React app
